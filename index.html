@@ -230,8 +230,51 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
+<script>
+
+document.getElementById("submitBtn").addEventListener("click", async () => {
+
+const name = document.getElementById("name").value;
+const phone = document.getElementById("phone").value;
+const province = document.getElementById("province").value;
+const bill = document.getElementById("bill").value;
+const roofType = document.getElementById("roofType").value;
+const propertyType = document.getElementById("propertyType").value;
+
+if(!name || !phone || !province){
+document.getElementById("status").innerHTML = "Please fill in all required fields";
+return;
+}
+
+try {
+
+await db.collection("leads").add({
+name: name,
+phone: phone,
+province: province,
+bill: bill,
+roofType: roofType,
+propertyType: propertyType,
+source: "Solarneeds Website",
+timestamp: new Date(),
+sold: false
+});
+
+document.getElementById("status").innerHTML =
+"<p class='success'>Thank you! Installers will contact you shortly.</p>";
+
+} catch(err){
+
+document.getElementById("status").innerHTML =
+"Error submitting request.";
+
+}
+
+});
+
 </script>
-  
+
+</script>
 
 </body>
 </html>
