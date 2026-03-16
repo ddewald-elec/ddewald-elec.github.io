@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +7,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="google-site-verification" content="1dC0uIFrEFm8-U_DI947j9iWaawj2gcZJLRecsYf0ww" />
-
 <title>Solar Installers South Africa | Get Solar Quotes Near You</title>
 
-<meta name="description" content="Looking for solar installers in South Africa? Use our solar calculator and request quotes from verified solar installers in your province.">
+<meta name="description" content="Looking for solar installers in South Africa? Use our solar calculator and request quotes from verified solar installers.">
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff9800">
@@ -77,18 +76,9 @@ width:100%;
 font-size:16px;
 }
 
-#result{
-font-weight:bold;
-margin-bottom:30px;
-}
-
 .success{
 color:green;
 font-weight:bold;
-}
-
-.section{
-margin-top:30px;
 }
 
 </style>
@@ -114,14 +104,12 @@ margin-top:30px;
 <p>
 1. Use the calculator below to estimate your solar system.<br>
 2. Submit your request.<br>
-3. Solar installers in your province will contact you with quotes.
+3. Solar installers will contact you with quotes.
 </p>
 
 </div>
 
 <h2>Solar System Calculator</h2>
-
-<h3>Option 1: Appliance Counter</h3>
 
 <label>Lights</label>
 <input type="number" id="lights" value="10">
@@ -148,17 +136,6 @@ margin-top:30px;
 <input type="number" id="washing" value="1">
 
 <button onclick="calculateSolar()">Calculate Estimated System</button>
-
-<div class="section">
-
-<h3>Option 2: Electricity Bill</h3>
-
-<label>Monthly Electricity Bill (R)</label>
-<input type="number" id="bill" placeholder="Example: 2000">
-
-<button onclick="calculateBill()">Calculate From Electricity Bill</button>
-
-</div>
 
 <div id="result"></div>
 
@@ -205,7 +182,6 @@ appId: "1:448176433443:web:10390b7ce84b892d460496"
 };
 
 firebase.initializeApp(firebaseConfig);
-
 const db = firebase.firestore();
 
 function calculateSolar(){
@@ -225,22 +201,6 @@ let kw = (total / 1000).toFixed(1);
 
 document.getElementById("result").innerHTML =
 "Estimated Load: " + kw + " kW<br>Recommended System: " + (kw * 1.5).toFixed(1) + " kW inverter system";
-
-}
-
-function calculateBill(){
-
-let bill = document.getElementById("bill").value;
-
-if(!bill){
-document.getElementById("result").innerHTML = "Enter your monthly electricity bill";
-return;
-}
-
-let system = (bill / 1000) * 5;
-
-document.getElementById("result").innerHTML =
-"Estimated Solar System Size: " + system.toFixed(1) + " kW";
 
 }
 
@@ -281,7 +241,6 @@ let deferredPrompt;
 window.addEventListener("beforeinstallprompt", (e) => {
 
 e.preventDefault();
-
 deferredPrompt = e;
 
 document.getElementById("installBtn").style.display = "inline-block";
@@ -293,7 +252,6 @@ document.getElementById("installBtn").addEventListener("click", async () => {
 if (deferredPrompt) {
 
 deferredPrompt.prompt();
-
 const { outcome } = await deferredPrompt.userChoice;
 
 deferredPrompt = null;
@@ -306,10 +264,22 @@ deferredPrompt = null;
 
 <script>
 
-if ("serviceWorker" in navigator") {
+if ("serviceWorker" in navigator) {
 
-navigator.serviceWorker.register("/service-worker.js")
-.then(() => console.log("Service Worker Registered"));
+window.addEventListener("load", function() {
+
+navigator.serviceWorker.register("./service-worker.js")
+.then(function(reg){
+
+console.log("Service Worker registered:", reg.scope);
+
+}).catch(function(err){
+
+console.log("Service Worker failed:", err);
+
+});
+
+});
 
 }
 
@@ -317,3 +287,4 @@ navigator.serviceWorker.register("/service-worker.js")
 
 </body>
 </html>
+```
