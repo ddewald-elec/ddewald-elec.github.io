@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
-<meta name="google-site-verification" content="1dC0uIFrEFm8-U_DI947j9iWaawj2gcZJLRecsYf0ww" />
-
 <meta charset="UTF-8">
+<meta name="google-site-verification" content="1dC0uIFrEFm8-U_DI947j9iWaawj2gcZJLRecsYf0ww" />
 
 <title>Solar Installers South Africa | Get Solar Quotes Near You</title>
 
 <meta name="description" content="Looking for solar installers in South Africa? Use our solar calculator and request quotes from verified solar installers in your province.">
-
-<meta name="keywords" content="solar installers south africa, solar installation quote, solar power south africa, solar inverter installers">
 
 <style>
 
@@ -78,19 +74,17 @@ margin-top:30px;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="topbar">
-<a class="installer-btn" href="installer.html">I am a Solar Installer</a>
+<a class="installer-btn" href="#">I am a Solar Installer</a>
 </div>
 
 <h1>Find Solar Installers in South Africa</h1>
 
 <div class="info">
-
 <h3>How it works</h3>
 
 <p>
@@ -99,48 +93,9 @@ margin-top:30px;
 3. Solar installers in your province will contact you with quotes.
 </p>
 
-<p><b>Your details will only be shared with installers responding to your request.</b></p>
-
 </div>
 
 <h2>Solar System Calculator</h2>
-
-<label>What do you want solar for?</label>
-<select id="goal">
-<option value="">Select your goal</option>
-<option>Backup during load shedding</option>
-<option>Reduce electricity bill</option>
-<option>Go fully off grid</option>
-</select>
-
-<label>Your Budget</label>
-<select id="budget">
-<option value="">Select Budget Range</option>
-<option>R80k – R120k</option>
-<option>R120k – R200k</option>
-<option>R200k – R350k</option>
-<option>R350k+</option>
-</select>
-
-<label>Property Type</label>
-<select id="propertyType">
-<option value="">Select Property Type</option>
-<option>House</option>
-<option>Townhouse</option>
-<option>Farm</option>
-<option>Business</option>
-<option>Apartment</option>
-</select>
-
-<label>Roof Type</label>
-<select id="roofType">
-<option value="">Select Roof Type</option>
-<option>Tile Roof</option>
-<option>Metal Roof</option>
-<option>Flat Roof</option>
-<option>Thatch Roof</option>
-<option>Other</option>
-</select>
 
 <h3>Option 1: Appliance Counter</h3>
 
@@ -207,6 +162,7 @@ margin-top:30px;
 
 <div id="status"></div>
 
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
@@ -223,6 +179,7 @@ appId: "1:448176433443:web:10390b7ce84b892d460496"
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+
 
 function calculateSolar(){
 
@@ -244,6 +201,7 @@ document.getElementById("result").innerHTML =
 
 }
 
+
 function calculateBill(){
 
 let bill = document.getElementById("bill").value;
@@ -260,42 +218,28 @@ document.getElementById("result").innerHTML =
 
 }
 
-document.getElementById("submitBtn").addEventListener("click", async () => {
+
+document.getElementById("submitBtn").addEventListener("click", async function(){
 
 const name = document.getElementById("name").value;
 const phone = document.getElementById("phone").value;
 const province = document.getElementById("province").value;
-const bill = document.getElementById("bill").value;
-const roofType = document.getElementById("roofType").value;
-const propertyType = document.getElementById("propertyType").value;
 
 if(!name || !phone || !province){
 document.getElementById("status").innerHTML = "Please fill in all required fields";
 return;
 }
 
-try {
-
 await db.collection("leads").add({
-name,
-phone,
-province,
-bill,
-roofType,
-propertyType,
-source:"Solarneeds Website",
+name:name,
+phone:phone,
+province:province,
 timestamp:new Date(),
 sold:false
 });
 
 document.getElementById("status").innerHTML =
 "<p class='success'>Thank you! Installers will contact you shortly.</p>";
-
-} catch(err){
-
-document.getElementById("status").innerHTML = "Error submitting request.";
-
-}
 
 });
 
