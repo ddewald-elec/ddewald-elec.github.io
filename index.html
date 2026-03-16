@@ -103,7 +103,6 @@ margin-top:30px;
 
 </div>
 
-
 <h2>Solar System Calculator</h2>
 
 <label>What do you want solar for?</label>
@@ -142,7 +141,6 @@ margin-top:30px;
 <option>Thatch Roof</option>
 <option>Other</option>
 </select>
-
 
 <h3>Option 1: Appliance Counter</h3>
 
@@ -190,7 +188,6 @@ margin-top:30px;
 <h2>Request Quotes From Solar Installers</h2>
 
 <input id="name" placeholder="Your Name">
-
 <input id="phone" placeholder="Phone Number">
 
 <select id="province">
@@ -210,27 +207,58 @@ margin-top:30px;
 
 <div id="status"></div>
 
-
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAu-8YfJhiyEYF8zEZzt203igel0lDkwYk",
-  authDomain: "solar-leads-526c6.firebaseapp.com",
-  projectId: "solar-leads-526c6",
-  storageBucket: "solar-leads-526c6.firebasestorage.app",
-  messagingSenderId: "448176433443",
-  appId: "1:448176433443:web:10390b7ce84b892d460496",
-  measurementId: "G-7JV3QWLFHQ"
+apiKey: "AIzaSyAu-8YfJhiyEYF8zEZzt203igel0lDkwYk",
+authDomain: "solar-leads-526c6.firebaseapp.com",
+projectId: "solar-leads-526c6",
+storageBucket: "solar-leads-526c6.firebasestorage.app",
+messagingSenderId: "448176433443",
+appId: "1:448176433443:web:10390b7ce84b892d460496"
 };
 
 firebase.initializeApp(firebaseConfig);
-
 const db = firebase.firestore();
 
-<script>
+function calculateSolar(){
+
+let lights = document.getElementById("lights").value * 10;
+let tv = document.getElementById("tv").value * 120;
+let fridge = document.getElementById("fridge").value * 150;
+let kettle = document.getElementById("kettle").value * 2000;
+let microwave = document.getElementById("microwave").value * 1200;
+let aircon = document.getElementById("aircon").value * 1500;
+let geyser = document.getElementById("geyser").value * 3000;
+let washing = document.getElementById("washing").value * 500;
+
+let total = lights + tv + fridge + kettle + microwave + aircon + geyser + washing;
+
+let kw = (total / 1000).toFixed(1);
+
+document.getElementById("result").innerHTML =
+"Estimated Load: " + kw + " kW<br>Recommended System: " + (kw * 1.5).toFixed(1) + " kW inverter system";
+
+}
+
+function calculateBill(){
+
+let bill = document.getElementById("bill").value;
+
+if(!bill){
+document.getElementById("result").innerHTML = "Enter your monthly electricity bill";
+return;
+}
+
+let system = (bill / 1000) * 5;
+
+document.getElementById("result").innerHTML =
+"Estimated Solar System Size: " + system.toFixed(1) + " kW";
+
+}
 
 document.getElementById("submitBtn").addEventListener("click", async () => {
 
@@ -249,15 +277,15 @@ return;
 try {
 
 await db.collection("leads").add({
-name: name,
-phone: phone,
-province: province,
-bill: bill,
-roofType: roofType,
-propertyType: propertyType,
-source: "Solarneeds Website",
-timestamp: new Date(),
-sold: false
+name,
+phone,
+province,
+bill,
+roofType,
+propertyType,
+source:"Solarneeds Website",
+timestamp:new Date(),
+sold:false
 });
 
 document.getElementById("status").innerHTML =
@@ -265,14 +293,11 @@ document.getElementById("status").innerHTML =
 
 } catch(err){
 
-document.getElementById("status").innerHTML =
-"Error submitting request.";
+document.getElementById("status").innerHTML = "Error submitting request.";
 
 }
 
 });
-
-</script>
 
 </script>
 
