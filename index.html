@@ -34,7 +34,7 @@ margin-bottom:20px;
 }
 
 .installer-btn{
-background:#2e7d32;
+background:#25D366;
 color:white;
 padding:10px 18px;
 text-decoration:none;
@@ -98,8 +98,11 @@ margin-top:30px;
 <body>
 
 <div class="topbar">
-<a class="installer-btn" href="#">I am a Solar Installer</a>
+
+<a class="installer-btn" href="https://wa.me/27821234567?text=Hi%20I%20am%20a%20solar%20installer%20and%20want%20to%20join%20your%20platform">I am a Solar Installer</a>
+
 <button id="installBtn" class="install-btn">Install App</button>
+
 </div>
 
 <h1>Find Solar Installers in South Africa</h1>
@@ -205,7 +208,6 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-
 function calculateSolar(){
 
 let lights = document.getElementById("lights").value * 10;
@@ -226,17 +228,13 @@ document.getElementById("result").innerHTML =
 
 }
 
-
 function calculateBill(){
 
 let bill = document.getElementById("bill").value;
 
 if(!bill){
-
 document.getElementById("result").innerHTML = "Enter your monthly electricity bill";
-
 return;
-
 }
 
 let system = (bill / 1000) * 5;
@@ -245,7 +243,6 @@ document.getElementById("result").innerHTML =
 "Estimated Solar System Size: " + system.toFixed(1) + " kW";
 
 }
-
 
 document.getElementById("submitBtn").addEventListener("click", async function(){
 
@@ -256,7 +253,6 @@ const province = document.getElementById("province").value;
 if(!name || !phone || !province){
 
 document.getElementById("status").innerHTML = "Please fill in all required fields";
-
 return;
 
 }
