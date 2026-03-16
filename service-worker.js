@@ -1,22 +1,10 @@
-const CACHE_NAME = "solar-leads-cache-v1";
+<script>
 
-const urlsToCache = [
-"/",
-"/index.html"
-];
+if ("serviceWorker" in navigator) {
 
-self.addEventListener("install", event => {
-event.waitUntil(
-caches.open(CACHE_NAME).then(cache => {
-return cache.addAll(urlsToCache);
-})
-);
-});
+navigator.serviceWorker.register("./service-worker.js")
+.then(() => console.log("Service Worker Registered"));
 
-self.addEventListener("fetch", event => {
-event.respondWith(
-caches.match(event.request).then(response => {
-return response || fetch(event.request);
-})
-);
-});
+}
+
+</script>
