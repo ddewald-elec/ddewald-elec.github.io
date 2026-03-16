@@ -2,12 +2,18 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="google-site-verification" content="1dC0uIFrEFm8-U_DI947j9iWaawj2gcZJLRecsYf0ww" />
 
 <title>Solar Installers South Africa | Get Solar Quotes Near You</title>
 
 <meta name="description" content="Looking for solar installers in South Africa? Use our solar calculator and request quotes from verified solar installers in your province.">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff9800">
 
 <style>
 
@@ -34,6 +40,18 @@ padding:10px 18px;
 text-decoration:none;
 border-radius:5px;
 font-size:14px;
+}
+
+.install-btn{
+background:#ff9800;
+color:white;
+padding:10px 18px;
+border:none;
+border-radius:5px;
+font-size:14px;
+margin-left:10px;
+cursor:pointer;
+display:none;
 }
 
 .info{
@@ -74,17 +92,20 @@ margin-top:30px;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="topbar">
 <a class="installer-btn" href="#">I am a Solar Installer</a>
+<button id="installBtn" class="install-btn">Install App</button>
 </div>
 
 <h1>Find Solar Installers in South Africa</h1>
 
 <div class="info">
+
 <h3>How it works</h3>
 
 <p>
@@ -146,6 +167,7 @@ margin-top:30px;
 <input id="phone" placeholder="Phone Number">
 
 <select id="province">
+
 <option value="">Select Province</option>
 <option>Gauteng</option>
 <option>Western Cape</option>
@@ -156,12 +178,12 @@ margin-top:30px;
 <option>Mpumalanga</option>
 <option>North West</option>
 <option>Northern Cape</option>
+
 </select>
 
 <button id="submitBtn">Submit Request</button>
 
 <div id="status"></div>
-
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -169,15 +191,18 @@ margin-top:30px;
 <script>
 
 const firebaseConfig = {
+
 apiKey: "AIzaSyAu-8YfJhiyEYF8zEZzt203igel0lDkwYk",
 authDomain: "solar-leads-526c6.firebaseapp.com",
 projectId: "solar-leads-526c6",
 storageBucket: "solar-leads-526c6.firebasestorage.app",
 messagingSenderId: "448176433443",
 appId: "1:448176433443:web:10390b7ce84b892d460496"
+
 };
 
 firebase.initializeApp(firebaseConfig);
+
 const db = firebase.firestore();
 
 
@@ -207,8 +232,11 @@ function calculateBill(){
 let bill = document.getElementById("bill").value;
 
 if(!bill){
+
 document.getElementById("result").innerHTML = "Enter your monthly electricity bill";
+
 return;
+
 }
 
 let system = (bill / 1000) * 5;
@@ -226,22 +254,68 @@ const phone = document.getElementById("phone").value;
 const province = document.getElementById("province").value;
 
 if(!name || !phone || !province){
+
 document.getElementById("status").innerHTML = "Please fill in all required fields";
+
 return;
+
 }
 
 await db.collection("leads").add({
+
 name:name,
 phone:phone,
 province:province,
 timestamp:new Date(),
 sold:false
+
 });
 
 document.getElementById("status").innerHTML =
 "<p class='success'>Thank you! Installers will contact you shortly.</p>";
 
 });
+
+</script>
+
+<script>
+
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+
+e.preventDefault();
+
+deferredPrompt = e;
+
+document.getElementById("installBtn").style.display = "inline-block";
+
+});
+
+document.getElementById("installBtn").addEventListener("click", async () => {
+
+if (deferredPrompt) {
+
+deferredPrompt.prompt();
+
+const { outcome } = await deferredPrompt.userChoice;
+
+deferredPrompt = null;
+
+}
+
+});
+
+</script>
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+navigator.serviceWorker.register("/service-worker.js")
+.then(() => console.log("Service Worker Registered"));
+
+}
 
 </script>
 
