@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta name="google-site-verification" content="1dC0uIFrEFm8-U_DI947j9iWaawj2gcZJLRecsYf0ww" />
+
+<meta charset="UTF-8">
+
+<title>Solar Installers South Africa | Get Solar Quotes Near You</title>
+
+<meta name="description" content="Looking for solar installers in South Africa? Use our solar calculator and request quotes from verified solar installers in your province.">
+
+<meta name="keywords" content="solar installers south africa, solar installation quote, solar power south africa, solar inverter installers">
+
+<style>
+
+body{
+font-family:Arial;
+max-width:750px;
+margin:auto;
+padding:30px;
+}
+
+h1{
+text-align:center;
+}
+
+.topbar{
+text-align:right;
+margin-bottom:20px;
+}
+
+.installer-btn{
+background:#2e7d32;
+color:white;
+padding:10px 18px;
+text-decoration:none;
+border-radius:5px;
+font-size:14px;
+}
+
+.info{
+background:#f5f5f5;
+padding:20px;
+margin-bottom:30px;
+border-radius:6px;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin-bottom:15px;
+}
+
+button{
+background:#ff9800;
+color:white;
+border:none;
+padding:14px;
+cursor:pointer;
+width:100%;
+font-size:16px;
+}
+
+#result{
+font-weight:bold;
+margin-bottom:30px;
+}
+
+.success{
+color:green;
+font-weight:bold;
+}
+
+.section{
+margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+<a class="installer-btn" href="installer.html">I am a Solar Installer</a>
+</div>
+
+<h1>Find Solar Installers in South Africa</h1>
+
+<div class="info">
+
+<h3>How it works</h3>
+
+<p>
+1. Use the calculator below to estimate your solar system.<br>
+2. Submit your request.<br>
+3. Solar installers in your province will contact you with quotes.
+</p>
+
+<p><b>Your details will only be shared with installers responding to your request.</b></p>
+
+</div>
+
+
+<h2>Solar System Calculator</h2>
+
+<label>What do you want solar for?</label>
+<select id="goal">
+<option value="">Select your goal</option>
+<option>Backup during load shedding</option>
+<option>Reduce electricity bill</option>
+<option>Go fully off grid</option>
+</select>
+
+<label>Your Budget</label>
+<select id="budget">
+<option value="">Select Budget Range</option>
+<option>R80k – R120k</option>
+<option>R120k – R200k</option>
+<option>R200k – R350k</option>
+<option>R350k+</option>
+</select>
+
+<label>Property Type</label>
+<select id="propertyType">
+<option value="">Select Property Type</option>
+<option>House</option>
+<option>Townhouse</option>
+<option>Farm</option>
+<option>Business</option>
+<option>Apartment</option>
+</select>
+
+<label>Roof Type</label>
+<select id="roofType">
+<option value="">Select Roof Type</option>
+<option>Tile Roof</option>
+<option>Metal Roof</option>
+<option>Flat Roof</option>
+<option>Thatch Roof</option>
+<option>Other</option>
+</select>
+
+
+<h3>Option 1: Appliance Counter</h3>
+
+<label>Lights</label>
+<input type="number" id="lights" value="10">
+
+<label>TVs</label>
+<input type="number" id="tv" value="1">
+
+<label>Fridges</label>
+<input type="number" id="fridge" value="1">
+
+<label>Kettles</label>
+<input type="number" id="kettle" value="1">
+
+<label>Microwaves</label>
+<input type="number" id="microwave" value="1">
+
+<label>Aircons</label>
+<input type="number" id="aircon" value="0">
+
+<label>Geysers</label>
+<input type="number" id="geyser" value="1">
+
+<label>Washing Machines</label>
+<input type="number" id="washing" value="1">
+
+<button onclick="calculateSolar()">Calculate Estimated System</button>
+
+<div class="section">
+
+<h3>Option 2: Electricity Bill</h3>
+
+<label>Monthly Electricity Bill (R)</label>
+<input type="number" id="bill" placeholder="Example: 2000">
+
+<button onclick="calculateBill()">Calculate From Electricity Bill</button>
+
+</div>
+
+<div id="result"></div>
+
+<hr>
+
+<h2>Request Quotes From Solar Installers</h2>
+
+<input id="name" placeholder="Your Name">
+
+<input id="phone" placeholder="Phone Number">
+
+<select id="province">
+<option value="">Select Province</option>
+<option>Gauteng</option>
+<option>Western Cape</option>
+<option>KwaZulu-Natal</option>
+<option>Eastern Cape</option>
+<option>Free State</option>
+<option>Limpopo</option>
+<option>Mpumalanga</option>
+<option>North West</option>
+<option>Northern Cape</option>
+</select>
+
+<button id="submitBtn">Submit Request</button>
+
+<div id="status"></div>
+
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAu-8YfJhiyEYF8zEZzt203igel0lDkwYk",
+  authDomain: "solar-leads-526c6.firebaseapp.com",
+  projectId: "solar-leads-526c6",
+  storageBucket: "solar-leads-526c6.firebasestorage.app",
+  messagingSenderId: "448176433443",
+  appId: "1:448176433443:web:10390b7ce84b892d460496",
+  measurementId: "G-7JV3QWLFHQ"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+</script>
+
+</body>
+</html>
